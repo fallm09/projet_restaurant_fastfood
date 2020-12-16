@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\..\\..\\..\\xampp\\htdocs\\doctrineapi"
+		},
+		{
+			"path": "..\\.."
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\xampp\\htdocs\\framework_Laravel"
+		}
+	],
+	"settings": {}
+}
