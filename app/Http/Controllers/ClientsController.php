@@ -10,26 +10,46 @@ use Illuminate\Support\Facades\DB;
 class ClientsController extends Controller
 {
    public function add(){
-        $client = Client::all();
-       return view('Client.add')->with("clients",$client);
-   }
-
+        $client = Client::paginate(2);
+  
+    return view('Client.add')->with("clients",$client);
+}
   /* public function getAll(){
     $client = Client::all();
 
     return view('Client.liste')->with("clients",$client);
    }*/
 
-   public function update($id){
-    $clients = Client::find($id);   
+
+
+   /*public function update($id){
+     
+    $clients =client::find($id);
+    return 
+
+
 
     return $this->getAll();
-   }
 
-   public function edit($id){
+
+   }*/
+
+    public function edit(Request  $request ,$id){
+        Client::updateOrCreate(
+            [
+                'id'=>$id
+            ],
+            [
+                'nom'=>$request->nom,
+            ]
+            );
        
-    $clients = Client::find($id);   
-    return view ($clients);
+    // $clients = Client::find($id);
+    // //$clients = Client::paginate(2);
+  
+    return view('Client.add')->with("clients",$id);
+
+
 
 
    }
@@ -50,31 +70,14 @@ class ClientsController extends Controller
    }
 
 
-    /*public function search  (Request $request) {
+    public function searchPost(Request $request) {
 
             
-          // $search = $request->get('search');
-
-           //$val="%".$search."%";
-           
-       //   $clients = DB::table('clients')->where('nom',"like",$val)->get();
-           
-           //echo "Value searched :".$val."<br/>";
-            //$clients = DB::select("SELECT id FROM clients WHERE nom  LIKE '%:search%' ",["search"=>$search]);
-           //var_dump($clients);
-           //die ;
-           
-          // return view("Client.liste" ,['clients' =>$clients]) ;
-        }*/
-
-        public function searchPost(Request $request) {
-
-            
-            $search = $request->get('seachPersonne');
+         $search = $request->get('seachPersonne');
   
-             $val="%".$search."%";
+          $val="%".$search."%";
              
-            $clients = DB::table('clients')->where('nom',"like",$val)->get();
+          $clients = DB::table('clients')->where('nom',"like",$val)->get();
 
             foreach($clients as $cl) {
                         echo "<option>";

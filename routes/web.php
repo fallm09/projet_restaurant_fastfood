@@ -33,6 +33,8 @@ Route::get('/client/edit/{id}','ClientsController@edit')->name('editclient');
 Route::post('/client/searchPost/','ClientsController@searchPost')->name('searchclient');
 Route::get('/client/searchNom/{search}','ClientsController@index')->name('search');
 Route::get('/client/delete/{id}','ClientsController@delete')->name('delete');
+//Route::get('/client/update/{id}','ClientsController@update')->name('update');
+
 
 
 
