@@ -66,9 +66,7 @@
                                     </form>
                                 </div>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link" href="{{ route('getallclient') }}">{{ __('liste des clients') }}</a>
-                            </li> -->
+                          
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('addclient') }}">{{ __('Ajout des clients') }}</a>
                             </li>

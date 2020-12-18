@@ -28,10 +28,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/client/add', 'ClientsController@add')->name('addclient');
 //Route::get('/client/getAll','ClientsController@getALL')->name('getallclient');
 Route::post('/client/persist','ClientsController@persist')->name('persistclient');
-Route::get('/client/{id}','ClientsController@edit')->name('editclient');
+Route::get('/client/edit/{id}','ClientsController@edit')->name('editclient');
 //Route::get('/client/search','ClientsController@search')->name('searchclient');
 Route::post('/client/searchPost/','ClientsController@searchPost')->name('searchclient');
 Route::get('/client/searchNom/{search}','ClientsController@index')->name('search');
+Route::get('/client/delete/{id}','ClientsController@delete')->name('delete');
+
 
 
 //Route::get('commande CommandeController');

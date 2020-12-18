@@ -20,13 +20,18 @@ class ClientsController extends Controller
     return view('Client.liste')->with("clients",$client);
    }*/
 
-   public function update(){
+   public function update($id){
+    $clients = Client::find($id);   
+
     return $this->getAll();
    }
 
    public function edit($id){
        
-       return view ('client.add');
+    $clients = Client::find($id);   
+    return view ($clients);
+
+
    }
 
 
@@ -97,4 +102,17 @@ class ClientsController extends Controller
             return response()->json($clients);
         }
     }
+
+
+
+    public function delete ($id){
+        $clients = Client::find($id);
+        
+        $clients->delete();
+  
+
+        return redirect('/client/add')->with('success' , 'Data delete');
+
+}
+
 }
