@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Client;
-
+use Dompdf\Adapter\PDFLib;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use PDF;
 class ClientsController extends Controller
 {
    public function add(){
-        $client = Client::paginate(2);
+        $client = Client::paginate(4);
   
     return view('Client.add')->with("clients",$client);
 }
@@ -21,41 +21,32 @@ class ClientsController extends Controller
    }*/
 
 
-
-   /*public function update($id){
-     
-    $clients =client::find($id);
-    return 
-
-
-
-    return $this->getAll();
-
-
-   }*/
-
-    public function edit(Request  $request ,$id){
-        Client::updateOrCreate(
-            [
-                'id'=>$id
-            ],
-            [
-                'nom'=>$request->nom,
-            ]
-            );
+    public function edit( Client $client){
        
-    // $clients = Client::find($id);
+       
+        $clients = Client::all();
     // //$clients = Client::paginate(2);
   
-    return view('Client.add')->with("clients",$id);
+    return view('client.edit', compact('client'));
 
+   }
+     public function update(Client $client){
+    
+    $data = request()->validate([
+             'nom'=>'required|min:2',
+             'prenom'=>'required|min:6',
+             'adresse' =>'required|min:10',
+             'tel'=>'required|min:9',
+             'email'=>'required|min:10',
+    ]);
 
-
-
+        $client->update($data);
+        return redirect('/client/add');
    }
 
 
-   public function persist (Request  $request) {
+
+    public function persist (Request  $request) {
        
        $client=DB::table("clients")->insert(array(
         'nom'=>$request->nom,
@@ -117,5 +108,41 @@ class ClientsController extends Controller
         return redirect('/client/add')->with('success' , 'Data delete');
 
 }
+
+
+    public function downloadPDF (){
+        $client = Client::all();
+
+      //  $Client= $this->$cl->get();
+    // load view for pdf file
+         $pdf = PDF::loadView('pdf.view', ['Clients' => $client]);
+
+         return $pdf->download('view.pdf');
+
+}       
+
+
+
+
+    public function viewPDF()
+{
+    $client = Client::all();
+  //  $Client= $this->$client->get();
+
+    $pdf = PDF::loadView('pdf.view', ['Clients' => $client]);
+
+    return $pdf->stream();
+}
+
+
+
+ 
+
+
+
+
+
+
+
 
 }

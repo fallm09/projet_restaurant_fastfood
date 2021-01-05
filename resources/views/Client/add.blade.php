@@ -71,8 +71,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="'/client/add'" id="EditForm">
+                <form method="POST" action="/client/update/{id}" id="EditForm">
                     @csrf
+                    @PUT
                     <div class="modal-body">
 
                         <div class="form-group">
@@ -143,17 +144,25 @@
 
         <input class="search" id="search" placeholder=search... type="search" name="search" class="form-control" autocomplete="off">
         <datalist id="trouve"></datalist>
+        <br><br>
+        
+        <div class="row pull-right">
+ 
+      </div>
+        <a href="{{ route('view-pdf') }}" type="button" class="btn btn-info"><font style="vertical-align: inherit;">Afficher le PDF</font></font></a>
+        
+        <a href="{{ route('download-pdf') }}" type="button" class="btn btn-success"><font style="vertical-align: inherit;">Télécharger le PDF</font></font></a>
 
-
+       
         <br><br>
 
-
+    
         <table id="datatable" class="table table-bordered table-striped table-dark">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">NOM</th>
-                    <th scope="col">PRENOM</th>
+                    <th scope="col" >PRENOM</th>
                     <th scope="col">ADRESSE</th>
                     <th scope="col">TELEPHONE</th>
                     <th scope="col">EMAIL</th>
@@ -189,7 +198,8 @@
                     <td>{{$cl->email}}</td>
                     <!-- <td>{{$cl->fidele }}</td> -->
                     <td>
-                        <!-- <a href=editmodal class="btn btn-success edit ">EDIT</a> -->
+                        <!-- <a href=editmodal class="btn btn-success edit data-toggle="modal" data-target="#editmodal" data-id="$clients->id">
+                            EDIT ">EDIT</a> -->
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editmodal" data-id="$clients->id">
                             EDIT
                         </button>
@@ -290,7 +300,8 @@ document.getElementById("trouve").innerHTML = "processing..";
                             tables += '<td>' + value.tel + '</td>';
                             tables += '<td>' + value.email + '</td>';
                             // tables+='<td>'+value.fidele+ '</td>';
-                            tables += '<td> <a href="editModal" class="btn btn-success">EDIT</a></td>'
+                             tables += '<td> <a href="#" class="btn btn-success">EDIT</a></td>'
+                             tables += '<td> <a href="#" class="btn btn-danger">Delete</a></td>'
 
                             tables += '</tr>';
                         })
@@ -306,7 +317,7 @@ document.getElementById("trouve").innerHTML = "processing..";
             });
 
             {
-                / var table = $('#datatable').DataTable();
+                 var table = $('#datatable').DataTable();
                   table.on('click' , 'edit' , function(){
                       $tr = $(this).closest('tr');
                       if($($tr).hasClass('child')){
@@ -319,7 +330,7 @@ document.getElementById("trouve").innerHTML = "processing..";
                       $('prenom').val(data[2]);
                       $('adresse').val(data[2]);
 
-                      $('#EditForm').attr('action', '/client/edit/{id}' + data[0]);
+                      $('#EditForm').attr('action', '/client/update/{id}' + data[0]);
                       $('#"EditModal').modal('show')
                   }) ;
 
