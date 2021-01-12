@@ -31,6 +31,7 @@ Route::post('/client/persist','ClientsController@persist')->name('persistclient'
 //Route::get('/client/edit/{id}','ClientsController@edit')->name('editclient');
 //Route::get('/client/search','ClientsController@search')->name('searchclient');
 Route::post('/client/searchPost/','ClientsController@searchPost')->name('searchclient');
+Route::get('/client/edit/{id}/', 'ClientsController@edit')->name('editclient');
 Route::get('/client/searchNom/{search}','ClientsController@index')->name('search');
 Route::get('/client/delete/{id}','ClientsController@delete')->name('delete');
 Route::post('/client/update/{id}','ClientsController@update')->name('update');

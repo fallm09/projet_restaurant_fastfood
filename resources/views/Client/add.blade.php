@@ -61,61 +61,6 @@
     </div>
     <!-- {{-- End Add Modal--}} -->
 
-    <!-- {{-- Start-EditModal--}} -->
-    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Clients</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form method="POST" action="/client/update/{id}" id="EditForm">
-                    @csrf
-                    @PUT
-                    <div class="modal-body">
-
-                        <div class="form-group">
-                            <label class="control-label" for="nom">Nom du Client</label>
-                            <input class="form-control" type="text" name="nom" id="nom" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="prenom">Prenom du Client</label>
-                            <input class="form-control" type="text" name="prenom" id="prenom" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="Adresse">Adresse du Client</label>
-                            <input class="form-control" type="text" name="adresse" id="adresse" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="telephone"> Telephone du Client</label>
-                            <input class="form-control" type="text" name="telephone" id="telephone" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="email">Email du Client</label>
-                            <input class="form-control" type="text" name="email" id="email" />
-                        </div>
-                        <!-- <div class="form-group">
-                            <label class="control-label" for="fidele"> Fidele Client</label>
-                            <input class="form-control" type="text" name="fidele" id="fidele" />
-                        </div> -->
-                        <div class="form-group">
-                            <input class="btn btn-success" type="submit" name="Envoyer" id="envoyer" value="Envoyer" />
-                            <input class="btn btn-danger" type="reset" name="Annuler" id="annuler" value="Annuler" />
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- {{-- End Edit Modal--}} -->
-
-
-
-
-
-
 
     <div class="container">
         <h1>FAST-FOOD</h1>
@@ -198,13 +143,10 @@
                     <td>{{$cl->email}}</td>
                     <!-- <td>{{$cl->fidele }}</td> -->
                     <td>
-                        <!-- <a href=editmodal class="btn btn-success edit data-toggle="modal" data-target="#editmodal" data-id="$clients->id">
-                            EDIT ">EDIT</a> -->
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editmodal" data-id="$clients->id">
-                            EDIT
-                        </button>
 
-                        <a href='/client/delete/{{$cl->id}}' class="btn btn-danger delete">DELETE</a>
+                    <a href="{{ route('editclient', ['id' => $cl->id]) }}" class="btn btn-success edit">Editer</a>
+              
+                    <a href="{{route('delete', ['id' => $cl->id])}}" class="btn btn-danger delete">DELETE</a>
                     </td>
                     @endforeach
             </tbody>

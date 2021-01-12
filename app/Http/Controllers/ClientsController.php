@@ -21,30 +21,32 @@ class ClientsController extends Controller
    }*/
 
 
-    public function edit( Client $client){
-       
-       
-        $clients = Client::all();
+    public function edit($id){
+
+    $clients = Client::find($id);
     // //$clients = Client::paginate(2);
-  
-    return view('client.edit', compact('client'));
+       //var_dump($clients->nom);
+       //die;
+    //return view('client.edit', compact('client'));
+    return view('client.edit',compact('clients',$clients));
 
-   }
-     public function update(Client $client){
-    
-    $data = request()->validate([
-             'nom'=>'required|min:2',
-             'prenom'=>'required|min:6',
-             'adresse' =>'required|min:10',
-             'tel'=>'required|min:9',
-             'email'=>'required|min:10',
-    ]);
-
-        $client->update($data);
-        return redirect('/client/add');
-   }
+}
 
 
+    public function update(Request  $request)
+    {
+
+    $clients = Client::find($request->id);
+   
+       $clients->nom=$request->nom;
+       $clients->prenom=$request->prenom;
+       $clients->adresse =$request->adresse; 
+       $clients->tel =$request->telephone;
+       $clients->email=$request->email;
+       $Client = $clients->save();
+       return redirect('/client/add')->with('success' , 'Data saved');
+     
+    }
 
     public function persist (Request  $request) {
        
